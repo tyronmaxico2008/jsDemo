@@ -1,0 +1,41 @@
+<html>
+    <head>
+        <title>Ajax Upload</title>
+        <script src="global/jquery-1.11.0.min.js" ></script>
+        <script src="build/common.js"></script>
+        
+        <script>
+            
+            function test_myAjax() {
+                var sUrl = ($("#txtUrl").val() || 'test');
+                var oAjax = new clsMyAjax(sUrl);
+                
+                oAjax.onProgress = function(iPer){
+                    //console.log(iPer);
+                    document.getElementById("lblResult").innerText = Math.round(iPer) + " %";
+                }
+
+                var file = document.getElementById("txtFile");
+                var frm = new FormData();
+                frm.append("file1",file.files[0]);
+
+                oAjax.post(frm);
+            }
+        </script>
+        
+    </head>
+    <body>
+        
+        <label>
+            Specify Path
+            <input type="text" class="form-control" />
+        </label>
+        <hr />
+        
+        <h1>Ajax upload with progress : </h1>        
+        <input type="file" id="txtFile" />
+        <br />
+        <p><span id="lblResult">0 %</span></p>
+        <button onclick="test_myAjax()">Upload</button>
+    </body>
+</html>
